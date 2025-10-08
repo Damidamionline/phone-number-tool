@@ -1,0 +1,203 @@
+/* --- Basic Setup & Google Font --- */
+body {
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    background-color: #f4f7f6; /* Light gray background */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* --- Main Container --- */
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* --- Input Fields & Controls --- */
+#controls {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px dashed #d1d9e6;
+    border-radius: 8px;
+    background-color: #fafcff;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #555;
+}
+
+input[type="text"], input[type="file"] {
+    width: 80%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+    outline: none;
+}
+
+/* --- Phone Display Area --- */
+#phone-display {
+    margin-top: 25px;
+    padding: 25px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+#numbering {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+#phoneNumber {
+    font-size: 2em;
+    font-weight: 600;
+    color: #3498db;
+    word-wrap: break-word;
+}
+
+/* --- Buttons --- */
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- Specific Button Styles --- */
+#processNumbers {
+    background-color: #2ecc71; /* Green */
+}
+
+#processNumbers:hover {
+    background-color: #27ae60;
+}
+
+#addToListBtn {
+    background-color: #f1c40f; /* Yellow */
+}
+
+#addToListBtn:hover {
+    background-color: #f39c12;
+}
+
+#downloadListBtn {
+    background-color: #9b59b6; /* Purple */
+}
+
+#downloadListBtn:hover {
+    background-color: #8e44ad;
+}
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Adds space between buttons */
+    margin-top: 20px;
+}
+
+.button-group button {
+    width: 80%; /* Makes all buttons the same width */
+    margin: 0;
+}
+/* --- Watermark Footer --- */
+footer {
+    position: fixed; /* This keeps it visible at the bottom */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background-color: #f4f7f6; /* Match the body background */
+    z-index: 100; /* Ensures it stays on top of other content if needed */
+}
+
+.watermark {
+    font-size: 0.9em; /* Slightly smaller font */
+    color: #aaa; /* A light, subtle gray color */
+    text-decoration: none; /* Removes the default underline */
+    transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+.watermark:hover {
+    color: #3498db; /* On hover, change to the main blue color */
+    text-decoration: underline; /* Add underline on hover */
+}
+/* --- Styled File Input Button --- */
+
+/* 1. Hide the default, ugly file input button */
+#initial-view input[type="file"] {
+    display: none;
+}
+
+/* 2. Style our <label> to look like a button */
+.file-input-label {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.file-input-label:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* 3. Style for the filename text that will appear after choosing a file */
+.file-name {
+    margin-top: 15px;
+    color: #555;
+    font-size: 0.9em;
+    font-style: italic;
+    min-height: 1.2em; /* Prevents layout shift when filename appears */
+}
