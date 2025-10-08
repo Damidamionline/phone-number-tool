@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Number Tool</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Step 1: Initial View -->
+<div id="initial-view">
+    <h1>Phone Number Tool</h1>
+    
+    <!-- The actual file input, which we will hide with CSS -->
+    <input type="file" id="fileInput" accept=".txt">
+    
+    <!-- This label is our new, styled button -->
+    <label for="fileInput" class="file-input-label">
+        Choose a .txt File
+    </label>
+    
+    <!-- This is where the selected file's name will appear -->
+    <p id="fileName" class="file-name"></p>
+</div>
+
+        <!-- Step 2: Country Code Controls -->
+        <div id="controls" style="display: none;">
+            <label for="countryCodeInput">Enter Country Code to Remove:</label>
+            <input type="text" id="countryCodeInput" placeholder="e.g., 234">
+            <button id="processNumbers">Process</button>
+        </div>
+
+        <!-- Step 3: Main Phone Display -->
+        <div id="phone-display" style="display: none;">
+            <p id="numbering"></p>
+            <div>
+                <!-- The 'Phone Number:' text was removed to match the image -->
+                <span id="phoneNumber"></span>
+            </div>
+            <div class="button-group">
+                <button id="copyPhoneNumber">Copy</button>
+                <button id="addToListBtn">Add to List</button>
+                <button id="randomizeBtn">Randomize</button>
+                <button id="downloadListBtn" style="display: none;">Download List</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <footer>
+        <a href="https://t.me/telemtsa" target="_blank" class="watermark">
+            Built by web3kaiju - join community
+        </a>
+    </footer>
+</body>
+</html>
