@@ -201,3 +201,29 @@ footer {
     font-style: italic;
     min-height: 1.2em; /* Prevents layout shift when filename appears */
 }
+/* --- New Styles for Notifications & Instructions --- */
+
+/* Style for the temporary notification (e.g., "Added to list") */
+.notification {
+    color: #27ae60; /* Green success color */
+    font-weight: 600;
+    min-height: 1.2em; /* Prevents layout jump */
+    margin-bottom: 15px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Style for the "Refresh page" instruction */
+.restart-info {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #7f8c8d; /* Muted gray color */
+    display: none; /* Hidden by default */
+}
+
+/* Style for the button when text has been copied */
+button.copied {
+    background-color: #2ecc71; /* Green */
+    cursor: default;
+    transform: none; /* No hover effect when copied */
+}

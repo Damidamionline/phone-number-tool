@@ -11,6 +11,9 @@ const addToListBtn = document.getElementById('addToListBtn');
 const downloadListBtn = document.getElementById('downloadListBtn');
 const initialView = document.getElementById('initial-view');
 const fileNameSpan = document.getElementById('fileName');
+// Add these with your other const definitions
+const notificationMessage = document.getElementById('notification-message');
+const restartMessage = document.getElementById('restart-message');
 
 let rawPhoneNumbers = [];
 let processedPhoneNumbers = [];
@@ -42,6 +45,7 @@ function resetState() {
     numbersAddedToList = [];
     downloadListBtn.style.display = 'none';
     randomizeBtn.disabled = false;
+    restartMessage.style.display = 'none';
 }
 
 processNumbersBtn.addEventListener('click', () => {
@@ -80,13 +84,25 @@ function displayPhoneNumber() {
         phoneNumberSpan.textContent = "All numbers shown!";
         numberingSpan.textContent = `Done!`;
         randomizeBtn.disabled = true;
+        restartMessage.style.display = 'block';
     }
 }
 
 copyPhoneNumberBtn.addEventListener('click', () => {
-    if (phoneNumberSpan.textContent !== "All numbers shown!") {
-        navigator.clipboard.writeText(phoneNumberSpan.textContent)
-            .then(() => alert('Phone number copied!'))
+    const numberToCopy = phoneNumberSpan.textContent;
+    if (numberToCopy !== "All numbers shown!") {
+        navigator.clipboard.writeText(numberToCopy)
+            .then(() => {
+                // Change button style and text
+                copyPhoneNumberBtn.textContent = 'Copied!';
+                copyPhoneNumberBtn.classList.add('copied');
+
+                // Revert back after 1.5 seconds
+                setTimeout(() => {
+                    copyPhoneNumberBtn.textContent = 'Copy';
+                    copyPhoneNumberBtn.classList.remove('copied');
+                }, 1500);
+            })
             .catch(err => console.error('Failed to copy: ', err));
     }
 });
@@ -98,14 +114,25 @@ randomizeBtn.addEventListener('click', () => {
 
 addToListBtn.addEventListener('click', () => {
     const currentNumber = phoneNumberSpan.textContent;
-    if (currentNumber !== "All numbers shown!" && !numbersAddedToList.includes(currentNumber)) {
-        numbersAddedToList.push(currentNumber);
-        alert(`Added ${currentNumber} to the list. List now has ${numbersAddedToList.length} number(s).`);
-        if (downloadListBtn.style.display === 'none') {
-            downloadListBtn.style.display = 'inline-block';
+    let message = '';
+
+    if (currentNumber !== "All numbers shown!") {
+        if (!numbersAddedToList.includes(currentNumber)) {
+            numbersAddedToList.push(currentNumber);
+            message = `Added! List now has ${numbersAddedToList.length} number(s).`;
+            if (downloadListBtn.style.display === 'none') {
+                downloadListBtn.style.display = 'inline-block';
+            }
+        } else {
+            message = `${currentNumber} is already in the list.`;
         }
-    } else if (numbersAddedToList.includes(currentNumber)) {
-        alert(`${currentNumber} is already in the list.`);
+
+        // Show the notification message and fade it out
+        notificationMessage.textContent = message;
+        notificationMessage.style.opacity = 1;
+        setTimeout(() => {
+            notificationMessage.style.opacity = 0;
+        }, 2000); // Message disappears after 2 seconds
     }
 });
 
