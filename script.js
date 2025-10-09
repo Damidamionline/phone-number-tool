@@ -11,7 +11,6 @@ const addToListBtn = document.getElementById('addToListBtn');
 const downloadListBtn = document.getElementById('downloadListBtn');
 const initialView = document.getElementById('initial-view');
 const fileNameSpan = document.getElementById('fileName');
-// Add these with your other const definitions
 const notificationMessage = document.getElementById('notification-message');
 const restartMessage = document.getElementById('restart-message');
 
@@ -20,6 +19,7 @@ let processedPhoneNumbers = [];
 let shuffledIndices = [];
 let currentIndex = 0;
 let numbersAddedToList = [];
+let removedCountryCode = '';
 
 fileInput.addEventListener('change', (event) => {
     const file = event.target.files[0];
@@ -49,11 +49,14 @@ function resetState() {
 }
 
 processNumbersBtn.addEventListener('click', () => {
-    const countryCodeToRemove = countryCodeInput.value.trim();
+    // --- ADD THIS LINE ---
+    removedCountryCode = countryCodeInput.value.trim(); 
+
     processedPhoneNumbers = rawPhoneNumbers.map(num => {
         const trimmedNum = num.trim();
-        if (countryCodeToRemove && trimmedNum.startsWith(countryCodeToRemove)) {
-            return trimmedNum.substring(countryCodeToRemove.length);
+        // Use the new variable here
+        if (removedCountryCode && trimmedNum.startsWith(removedCountryCode)) {
+            return trimmedNum.substring(removedCountryCode.length);
         }
         return trimmedNum;
     });
@@ -113,27 +116,37 @@ randomizeBtn.addEventListener('click', () => {
 });
 
 addToListBtn.addEventListener('click', () => {
-    const currentNumber = phoneNumberSpan.textContent;
+    // First, make sure we are not at the end of the list
+    if (currentIndex >= shuffledIndices.length) {
+        return; 
+    }
+
+    // Get the index of the number in the original arrays
+    const originalIndex = shuffledIndices[currentIndex];
+
+    // Use that index to get the FULL, UNPROCESSED number from our raw list
+    const originalNumber = rawPhoneNumbers[originalIndex].trim();
+
     let message = '';
 
-    if (currentNumber !== "All numbers shown!") {
-        if (!numbersAddedToList.includes(currentNumber)) {
-            numbersAddedToList.push(currentNumber);
-            message = `Added! List now has ${numbersAddedToList.length} number(s).`;
-            if (downloadListBtn.style.display === 'none') {
-                downloadListBtn.style.display = 'inline-block';
-            }
-        } else {
-            message = `${currentNumber} is already in the list.`;
+    // Now, check if this original number is already in our download list
+    if (!numbersAddedToList.includes(originalNumber)) {
+        numbersAddedToList.push(originalNumber);
+        message = `Added ${originalNumber}! List has ${numbersAddedToList.length} number(s).`;
+        
+        if (downloadListBtn.style.display === 'none') {
+            downloadListBtn.style.display = 'inline-block';
         }
-
-        // Show the notification message and fade it out
-        notificationMessage.textContent = message;
-        notificationMessage.style.opacity = 1;
-        setTimeout(() => {
-            notificationMessage.style.opacity = 0;
-        }, 2000); // Message disappears after 2 seconds
+    } else {
+        message = `${originalNumber} is already in the list.`;
     }
+
+    // The notification logic stays the same
+    notificationMessage.textContent = message;
+    notificationMessage.style.opacity = 1;
+    setTimeout(() => {
+        notificationMessage.style.opacity = 0;
+    }, 2500); // Increased time slightly for the longer message
 });
 
 downloadListBtn.addEventListener('click', () => {
